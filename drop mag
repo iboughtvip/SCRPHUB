@@ -1,0 +1,88 @@
+local Player = game.Players.LocalPlayer
+
+local Equip = game.ReplicatedStorage.Events.Equip
+local Court = Player.PlayerData.GameData.Court
+
+local RemoteEvent; for _, Connection in next, getconnections(game:GetService("ReplicatedStorage").Events.RemoteEvent.OnClientEvent) do
+    if Connection.Function ~= nil then
+        RemoteEvent = Connection.Function
+    end
+end
+
+local GetNearestBall = function()
+    local Distance, Ball = 9e9
+    
+    for _, Target in next, game.Players:GetPlayers() do
+        if Target ~= Player and Target.Character ~= nil and Target.Character:FindFirstChild("Ball") then
+            local Magnitude = (Player.Character.Torso.Position - Target.Character.Torso.Position).Magnitude
+            
+            if Distance > Magnitude and Distance < 30 then
+                Distance = Magnitude
+                Ball = Target.Character.Ball
+            end
+        end
+    end
+    
+    return Ball
+end
+
+local TryToGetBall = function()
+    local CourtObj = workspace:FindFirstChild(Court.Value)
+    
+    if CourtObj ~= nil and CourtObj:FindFirstChild("Ball") == nil then
+        local Ball = GetNearestBall()
+        
+        if Ball ~= nil then
+            firetouchinterest(Player.Character.HumanoidRootPart, Ball, 0)
+            task.wait()
+            firetouchinterest(Player.Character.HumanoidRootPart, Ball, 1)
+        end
+    elseif CourtObj ~= nil and CourtObj:FindFirstChild("Ball") ~= nil then
+        if CourtObj.Ball:GetAttribute("Magnet") == nil then
+            setupvalue(RemoteEvent, 1, true)
+            Equip:FireServer()
+        end
+    end
+end
+
+task.spawn(function()
+    while task.wait() do
+        pcall(function()
+            if Player.Character:FindFirstChild("Ball") == nil then
+                TryToGetBall()
+            end
+        end)
+    end
+end)
+
+Player.Character.ChildAdded:Connect(function(Obj)
+    if Obj.Name == "Ball" then
+        Obj:SetAttribute("Magnet", true)
+    end
+end)
+
+Player.Character.ChildRemoved:Connect(function(Obj)
+    if Obj.Name == "Ball" then
+        task.wait(2)
+        if Obj.Parent ~= Player.Character then
+            Obj:SetAttribute("Magnet", nil)
+        end
+    end
+end)
+
+Player.CharacterAdded:Connect(function(Character)
+    Character.ChildAdded:Connect(function(Obj)
+        if Obj.Name == "Ball" then
+            Obj:SetAttribute("Magnet", true)
+        end
+    end)
+    
+    Character.ChildRemoved:Connect(function(Obj)
+        if Obj.Name == "Ball" then
+            task.wait(2)
+            if Obj.Parent ~= Character then
+                Obj:SetAttribute("Magnet", nil)
+            end
+        end
+    end)
+end)

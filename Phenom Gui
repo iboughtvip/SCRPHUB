@@ -1,0 +1,206 @@
+game.StarterGui:SetCore("SendNotification", {
+        Title = "Universal Roball Gui";
+        Text = "Script Successfully Loaded";
+        Duration = 5;
+    })
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Universal Roball Gui", "DarkTheme")        
+
+elseif game.PlaceId == 623694595 then
+
+
+        -- Hoopz
+        local Main = Window:NewTab("Hoopz")
+        local MainSection = Main:NewSection("Hoopz")
+    
+    
+        MainSection:NewButton("Hoopz Silent Aim", "X to shoot", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/hoopz'),true))()
+        end)
+    
+        MainSection:NewButton("Universal long arm", "Y to toggle long arms", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
+        end)
+    
+        MainSection:NewButton("Hoopz white trail", "Client Sided (only you can see)", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Hoopz%20trail'),true))()
+        end)
+    
+        MainSection:NewButton("See Stats", "see everyone's view stats even if they are off", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/see%20all'),true))()
+        end)
+    
+    
+        -- Phenom
+        local Main = Window:NewTab("Phenom")
+        local MainSection = Main:NewSection("Phenom")
+    
+        
+        MainSection:NewButton("NormalSIlent (X)", "Just press x when  green", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/NormalAimbot.lua"))()
+        end)
+    
+        MainSection:NewButton("Nojump Silient (X)", "Just press x when  green", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/NoJumpBot.lua"))()
+        end)
+        
+        MainSection:NewButton("T Silent (X)", "Just press x when  green", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/TBot.lua",true))()
+        end)
+        
+        MainSection:NewButton("Bounce Silent (X)", "Just press x when  green", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/BounceBot.lua",true))()
+        end)
+        
+        
+        MainSection:NewButton("AutoGuard (Z)", "Z when near a ball with a player", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Cleality/phenomidk/main/autoguard"))()
+        end)
+        
+        MainSection:NewButton("Ball Mag (Press R)", "Gives you Ball Mag", function()
+            local UIS = game:GetService('UserInputService')
+            local plr = game.Players.LocalPlayer
+            local Char = plr.Character or plr.CharacterAded:Wait()
+            local Key = 'R'
+            UIS.InputBegan:Connect(function(Input, IsTyping)
+            if IsTyping then return end
+            local KeyPressed = Input.KeyCode
+            if KeyPressed == Enum.KeyCode[Key] then
+            game.Workspace.Map.Basketball.Handle.CFrame = Game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            end
+            end)
+        end)
+    
+    
+        -- ROOFTOP
+        local Main = Window:NewTab("Rooftop")
+        local RooftopSection = Main:NewSection("Rooftop")
+    
+    
+        RooftopSection:NewButton("Rooftop Silent Aim", "Jump to shoot", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/hoopz'),true))()
+        end)
+    
+    
+        RooftopSection:NewButton("Universal long arm", "Y to toggle long arms", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
+        end)
+    
+    
+          -- STREETBALL
+          local Main = Window:NewTab("Streetball")
+          local StreetballSection = Main:NewSection("Streetball")
+      
+      
+          StreetballSection:NewButton("StreetBall Silent Aim", "X to shoot", function()
+              loadstring(game:HttpGet(('https://raw.githubusercontent.com/carolesdaughter/Streetball-Silent-Aim/main/SilentAimbot.lua'),true))()
+          end)
+      
+          StreetballSection:NewButton("Universal long arm", "Y to toggle long arms", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
+        end)
+    
+    
+    
+              -- Hoops Life
+              local Main = Window:NewTab("Hoops Life")
+              local HoopsLifeSection = Main:NewSection("Hoops Life")
+          
+          
+              HoopsLifeSection:NewButton("Hoops Life OP Gui", "Gui", function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Lukejdjd/roblox-scripts/main/HoopsLife.lua"))()
+              end)
+          
+              HoopsLifeSection:NewButton("Universal long arm", "Y to toggle long arms", function()
+                loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
+            end)
+    
+    
+    
+        -- Drop Offs
+        local Main = Window:NewTab("Drop offs")
+        local DropOffsSection = Main:NewSection("Drop offs")
+    
+    
+        DropOffsSection:NewButton("OP GUI", "has silient aim, autoguard, kick player, nosteal", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/drop'),true))()
+        end)
+    
+        DropOffsSection:NewButton("OP MAG", "OVERPOWERED BALL MAG", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/drop%20mag'),true))()
+        end)
+    
+    
+        DropOffsSection:NewButton("Universal long arm", "Y to toggle long arms", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
+        end)
+    
+       
+    
+    
+        --LOCAL PLAYER
+        local Player = Window:NewTab("Player")
+        local PlayerSection = Player:NewSection("Player")
+    
+        PlayerSection:NewSlider("Walkspeed", "SPEED!!", 500, 16, function(s)
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+        end)
+    
+        PlayerSection:NewSlider("Jumppower", "JUMP HIGH!!", 350, 50, function(s)
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+        end)
+    
+        PlayerSection:NewButton("Reset WS/JP", "Resets to all defaults", function()
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+        end)
+    
+        PlayerSection:NewButton("Universal long arm", "Y to toggle long arms", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
+        end)
+    
+    
+    
+    
+        --Other
+        local Other = Window:NewTab("Other")
+        local OtherSection = Other:NewSection("Other")
+    
+        OtherSection:NewButton("Chat Spoofer", "Lets you chat for other people", function()
+            loadstring(game:HttpGet(('https://pastebin.com/raw/djBfk8Li'),true))()
+        end)
+    
+        OtherSection:NewToggle("Super-Human", "go fast and jump high", function(state)
+            if state then
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 120
+                game.Players.LocalPlayer.Character.Humanoid.JumpPower = 120
+            else
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+                game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+            end
+        end)
+    
+        OtherSection:NewButton("Infinite Yeild", "Fe Admin commands", function()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+        end)
+    
+            --Settings
+            local Settings = Window:NewTab("Settings")
+            local SettingsSection = Settings:NewSection("Settings")
+        
+            SettingsSection:NewButton("Reset", "Resets your Characters", function()
+                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+            end)
+            
+            SettingsSection:NewButton("Rejoins", "Rejoins your game", function()
+                local TeleportService = game:GetService("TeleportService")
+                local placeID = 623694595
+                local player = Game.Players.LocalPlayer
+                 
+                TeleportService:Teleport(placeID, player)
+            end)
+        
+            SettingsSection:NewKeybind("Toggle", "Toggles the Gui", Enum.KeyCode.L, function()
+                Library:ToggleUI()
+            end)
+        end

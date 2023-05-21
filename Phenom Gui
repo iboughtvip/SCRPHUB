@@ -6,7 +6,7 @@ game.StarterGui:SetCore("SendNotification", {
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
     local Window = Library.CreateLib("Universal Roball Gui", "DarkTheme")        
 
-elseif game.PlaceId == 623694595 then
+if game.PlaceId == 623694595 then
 
 
         -- Hoopz

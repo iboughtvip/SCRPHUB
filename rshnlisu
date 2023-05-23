@@ -126,6 +126,10 @@ local Window = Library.CreateLib("Universal Roball Gui", "DarkTheme")
     DropOffsSection:NewButton("OP MAG", "OVERPOWERED BALL MAG", function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/drop%20mag'),true))()
     end)
+    
+    DropOffsSection:NewButton("Kick Script (Y)", "Press Y when have ball and let other player steal it", function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/doks'),true))()
+    end)
 
 
     DropOffsSection:NewButton("Universal long arm", "Y to toggle long arms", function()

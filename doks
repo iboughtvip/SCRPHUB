@@ -1,0 +1,17 @@
+local plr = game:GetService("Players").LocalPlayer
+ 
+for i,v in pairs(getconnections(game:GetService("RunService").RenderStepped)) do
+    if v.Function ~= nil then
+        func = v.Function
+    end
+end
+
+local hook; hook = hookfunction(func, function(...)
+    return task.wait(9e9)
+end)
+ 
+game:GetService("UserInputService").InputBegan:Connect(function(key, gpe)
+    if not gpe and key.KeyCode == Enum.KeyCode.Y then
+        plr.Character.Ball.Events.ChangeHand:Destroy()
+    end
+end)

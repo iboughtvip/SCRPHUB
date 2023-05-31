@@ -1,0 +1,12 @@
+getgenv().Enabled = true
+
+local Toggle = game:GetService("ReplicatedStorage"):WaitForChild("toggleEvent")
+
+while task.wait(0.03) and getgenv().Enabled == true do
+    local Color = Color3.fromHSV(tick() % 1, 1, 1)
+    local Color2 = Color3.fromHSV((tick() % 1) / 2, 1, 1)
+    
+    Toggle:InvokeServer("Color", Color, Color2)
+end
+
+Toggle:InvokeServer("Color", Color3.fromRGB(255, 255, 255), Color3.fromRGB(0, 0, 0))

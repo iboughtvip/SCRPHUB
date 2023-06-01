@@ -1,0 +1,302 @@
+local S, E = pcall(function()
+    _G.Stepped:Disconnect()
+    _G.InputBegan:Disconnect()
+end)
+ 
+if S then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Silent Aim",
+        Text = "Silent Aim was reset. Mode: Normal Silent",
+        Duration = 3
+    })
+ 
+    _G.Stepped = nil
+    _G.InputBegan = nil
+end
+ 
+local Player = game.Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
+ 
+local IsInFooting = false
+ 
+ 
+ 
+ 
+local Goals, Clicker = {} do
+    for _, Obj in next, game:GetDescendants() do
+        if Obj:IsA("RemoteEvent") and Obj.Name == "" then
+            Clicker = Obj
+        elseif Obj.Name == "Goal" and Obj:IsA("BasePart") then
+            table.insert(Goals, Obj)
+        elseif Obj.Name == "Part" and Obj:IsA("BasePart") and Obj:FindFirstChild("Chaching") then
+            table.insert(Goals, Obj)
+        end
+    end
+end
+ 
+local Shuffled, Selected do
+    for _, Garbage in next, getgc(true) do
+        if type(Garbage) == "function" and getinfo(Garbage)["name"] == "selected1" then
+            Selected = Garbage
+        elseif type(Garbage) == "table" and rawget(Garbage, "1") and rawget(Garbage, "1") ~= true then
+            Shuffled = Garbage
+        end
+    end
+end
+ 
+local GetKeyFromKeyTable = function()
+    local Keys = getupvalue(Selected, 4)
+    return Keys[1]
+end
+ 
+local RemoveKeyFromKeyTable = function()
+    local Keys = getupvalue(Selected, 4)
+    table.remove(Keys, 1)
+    setupvalue(Selected, 4, Keys)
+end
+ 
+local GetRandomizedTable = function(TorsoPosition, ShootPosition)
+    local UnrandomizedArgs = {
+        X1 = TorsoPosition.X,
+        Y1 = TorsoPosition.Y,
+        Z1 = TorsoPosition.Z,
+        X2 = ShootPosition.X,
+        Y2 = ShootPosition.Y,
+        Z2 = ShootPosition.Z
+    }
+ 
+    local RandomizedArgs = {
+        UnrandomizedArgs[Shuffled["1"]],
+        UnrandomizedArgs[Shuffled["2"]],
+        UnrandomizedArgs[Shuffled["3"]],
+        UnrandomizedArgs[Shuffled["4"]],
+        UnrandomizedArgs[Shuffled["5"]],
+        UnrandomizedArgs[Shuffled["6"]],
+    }
+ 
+    return RandomizedArgs
+end
+ 
+local GetDirection = function(Position)
+    return (Position - Player.Character.Torso.Position).Unit
+end
+ 
+local GetGoal = function()
+    local Distance, Goal = 9e9
+ 
+    for _, Obj in next, Goals do
+        local Magnitude = (Player.Character.Torso.Position - Obj.Position).Magnitude
+ 
+        if Distance > Magnitude then
+            Distance = Magnitude
+            Goal = Obj
+        end
+    end
+ 
+    return Goal
+end
+ 
+local GetDistance = function()
+    local Goal = GetGoal()
+ 
+    return (Player.Character.Torso.Position - Goal.Position).Magnitude
+end
+ 
+local GetBasketball = function()
+    return Player.Character:FindFirstChildOfClass("Folder")
+end
+ 
+local InFootingCheck = function()
+    local Distance = GetDistance()
+    local Basketball = GetBasketball()
+ 
+    local Power do 
+        if Basketball ~= nil then
+            Power = Basketball.PowerValue.Value
+        else
+            IsInFooting = false
+            return
+        end
+    end
+ 
+    if Power == 75 then
+        if Distance > 57 and Distance < 61 then
+            IsInFooting = true
+        else
+            IsInFooting = false
+        end
+    elseif Power == 80 then
+        if Distance > 57 and Distance < 69 then
+            IsInFooting = true
+        else
+            IsInFooting = false
+            end
+    elseif Power == 85 then
+        if Distance > 57 and Distance < 74 then
+            IsInFooting = true
+        else
+            IsInFooting = false
+            end
+    elseif Power == 90 then
+        if Distance > 57 and Distance < 79 then
+            IsInFooting = true
+        else
+            IsInFooting = false
+        end
+    elseif Power == 95 then
+        if Distance > 57 and Distance < 86 then
+            IsInFooting = true
+        else
+            IsInFooting = false
+        end
+    elseif Power == 100 then
+        if Distance > 57 and Distance < 93 then
+            IsInFooting = true
+        else
+            IsInFooting = false
+        end
+    end
+end
+ 
+local GetArc = function()
+    local Distance = GetDistance()
+    local Basketball = GetBasketball()
+ 
+    local Power do
+        if Basketball ~= nil then
+            Power = Basketball.PowerValue.Value
+        else
+            return
+        end
+    end
+ 
+    if Power == 75 then
+        if Distance > 57 and Distance < 59 then
+            return 55
+        elseif Distance > 59 and Distance < 60 then
+            return 50
+        elseif Distance > 60 and Distance < 61 then
+            return 45
+        end
+    elseif Power == 80 then
+        if Distance > 57 and Distance < 59 then
+            return 75
+        elseif Distance > 59 and Distance < 63 then
+            return 70
+        elseif Distance > 63 and Distance < 65 then
+            return 60
+        elseif Distance > 65 and Distance < 69 then
+            return 50
+        end
+    elseif Power == 85 then
+        if Distance > 57 and Distance < 63 then
+            return 85
+        elseif Distance > 63 and Distance < 67 then
+            return 80
+        elseif Distance > 67 and Distance < 70 then
+            return 75
+        elseif Distance > 70 and Distance < 74 then
+            return 60
+        end
+    elseif Power == 90 then
+        if Distance > 57 and Distance < 63 then
+            return 100
+        elseif Distance > 63 and Distance < 67 then
+            return 95
+        elseif Distance > 67 and Distance < 69 then
+            return 90
+        elseif Distance > 69 and Distance < 74 then
+            return 85
+        elseif Distance > 74 and Distance < 77 then
+            return 75
+        elseif Distance > 77 and Distance < 79 then
+            return 65
+        end
+    elseif Power == 95 then
+        if Distance > 57 and Distance < 58 then
+            return 120
+        elseif Distance > 59 and Distance < 63 then
+            return 115
+        elseif Distance > 63 and Distance < 68 then
+            return 110
+        elseif Distance > 68 and Distance < 71 then
+            return 105
+        elseif Distance > 71 and Distance < 74 then
+            return 100
+        elseif Distance > 74 and Distance < 79 then
+            return 95
+        elseif Distance > 79 and Distance < 81 then
+            return 90
+        elseif Distance > 81 and Distance < 82 then
+            return 65
+        elseif Distance > 82 and Distance < 86 then
+            return 60
+        end
+    elseif Power == 100 then
+        if Distance > 57 and Distance < 66 then
+            return 130
+        elseif Distance > 66 and Distance < 69 then
+            return 125
+        elseif Distance > 69 and Distance < 74 then
+            return 120
+        elseif Distance > 74 and Distance < 79 then
+            return 115
+        elseif Distance > 79 and Distance < 82 then
+            return 110
+        elseif Distance > 82 and Distance < 84 then
+            return 105
+        elseif Distance > 84 and Distance < 88 then
+            return 100
+        elseif Distance > 88 and Distance < 90 then
+            return 85
+        elseif Distance > 90 and Distance < 93 then
+            return 65
+        end
+    end
+end
+ 
+local Shoot = function()
+    local Goal = GetGoal()
+    local Arc = GetArc()
+    local Hit = (Goal.Position + Vector3.new(0, Arc, 0) + Player.Character.Humanoid.MoveDirection)
+    local Direction = GetDirection(Hit)
+    local RandomizedArgs = GetRandomizedTable(Player.Character.Torso.Position, Direction)
+    local Basketball = GetBasketball()
+ 
+    local Key = GetKeyFromKeyTable()
+ 
+    if type(Key) ~= "string" then
+        Key = "Shotta"
+    end
+ 
+    Clicker:FireServer(Basketball, Basketball.PowerValue.Value, RandomizedArgs, Key)
+ 
+    if Key ~= "Shotta" then
+        RemoveKeyFromKeyTable()
+    end
+end
+ 
+_G.InputBegan = UIS.InputBegan:Connect(function(Key, GPE)
+    if not GPE and Key.KeyCode == Enum.KeyCode.X and Player.Character and Player.Character:FindFirstChild("Basketball") and IsInFooting then
+        Shoot()
+    end
+end)
+ 
+_G.Stepped = RS.Stepped:Connect(function()
+    InFootingCheck()
+ 
+    if IsInFooting then
+    	Indicator.Text = "In Range"
+        Indicator.TextColor3 = Color3.fromRGB(0, 170, 0)
+    else
+		Indicator.Text = "Not In Range"
+        Indicator.TextColor3 = Color3.fromRGB(170, 0, 0)
+    end
+ 
+    if Player.Character ~= nil and Player.Character:FindFirstChild("Basketball") ~= nil then
+		UI.Enabled = true
+	else
+		UI.Enabled = false
+    end
+end)

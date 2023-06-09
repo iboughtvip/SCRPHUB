@@ -1,0 +1,314 @@
+local S, E = pcall(function()
+    _G.Stepped:Disconnect()
+    _G.InputBegan:Disconnect()
+end)
+
+if S then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Silent Aim",
+        Text = "Jump to shoot!",
+        Duration = 3
+    })
+
+    getgenv().Stepped = nil
+end
+
+local Player = (game:GetService("Players")).LocalPlayer
+local Character = Player.Character
+local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
+
+local InRange = true
+local HasBall = true
+
+local Highlight = Instance.new("Highlight")
+Highlight.Enabled = false
+Highlight.Adornee = Player.Character
+Highlight.FillColor = getgenv().FillColor
+Highlight.OutlineColor = getgenv().OutlineColor
+Highlight.Parent = game:GetService("CoreGui")
+
+local Goals = {} do
+	for _, Obj in next, Workspace.Courts:GetDescendants() do
+		if Obj.Name == "ActualNet" and Obj:IsA("MeshPart") then
+			table.insert(Goals, Obj)
+		end
+	end
+end
+local GetGoal = function()
+	local Distance, Goal = 9e9, nil
+	for _, Obj in next, Goals do
+		local Magnitude = (Player.Character.Torso.Position - Obj.Position).Magnitude
+		if Distance > Magnitude then
+			Distance = Magnitude
+			Goal = Obj
+		end
+	end
+	return Goal
+end
+local GetDistance = function()
+	local Goal = GetGoal()
+	local TorsoPosition = Player.Character.Torso.Position
+	return (TorsoPosition - Goal.Position).Magnitude
+end
+local GetPower = function()
+	return Player:GetAttribute("Power")
+end
+local GetBasketball = function()
+	return Player.Character:FindFirstChild("Ball")
+end
+local Direction = function(POS)
+	return (POS - Player.Character.Torso.Position).Unit
+end
+
+local GetMoveDirection = function()
+    local Direction = Player.Character.Humanoid.MoveDirection * 1.8
+    
+    if UIS:IsKeyDown(Enum.KeyCode.S) == true and UIS:IsKeyDown(Enum.KeyCode.W) == true then
+        Direction = Player.Character.Humanoid.MoveDirection * 0.5
+    elseif UIS:IsKeyDown(Enum.KeyCode.S) == true and UIS:IsKeyDown(Enum.KeyCode.W) == false then
+        Direction = Player.Character.Humanoid.MoveDirection * 0.8
+    elseif UIS:IsKeyDown(Enum.KeyCode.S) == false and UIS:IsKeyDown(Enum.KeyCode.W) == true then
+        Direction = Player.Character.Humanoid.MoveDirection * 1.2
+    end
+        
+    return Direction
+end
+
+local CheckDistance = function()
+	local Distance = GetDistance()
+	local Power = GetPower()
+	Distance = math.floor(Distance)
+	if Power == 75 then
+        if Distance == 9 or Distance == 10 or Distance == 11 or Distance == 12 or Distance == 13 then
+            return true
+    elseif Distance == 14 or Distance == 15 or Distance == 16 then
+            return true
+    elseif Distance == 17 or Distance == 18 or Distance == 19 or Distance == 20 or Distance == 21 or Distance == 22 then
+            return true
+    elseif Distance == 23 or Distance == 24 or Distance == 25 or Distance == 26 or Distance == 27 or Distance == 28 or Distance == 29 or Distance == 30 or Distance == 31 or Distance == 32 or Distance == 33 or Distance == 34 or Distance == 35 or Distance == 36 or Distance == 37 then
+            return true
+    elseif Distance == 38 or Distance == 39 or Distance == 40 then
+            return true
+    elseif Distance == 41 or Distance == 42 or Distance == 43 or Distance == 44 or Distance == 45 or Distance == 46 then
+            return true
+    elseif Distance == 47 or Distance == 48 or Distance == 49 then
+            return true
+    elseif Distance == 50 or Distance == 51 or Distance == 52 then
+            return true
+    elseif Distance == 53 or Distance == 54 or Distance == 55 then
+            return true
+    elseif Distance == 56 or Distance == 57 or Distance == 58 or Distance == 59 or Distance == 60 then
+            return true
+        end
+    elseif Power == 80 then
+        if Distance == 9 or Distance == 10 or Distance == 11 or Distance == 12 or Distance == 13 then
+            return true
+        elseif Distance == 14 or Distance == 15 or Distance == 16 then
+            return true
+        elseif Distance == 17 or Distance == 18 or Distance == 19 then
+            return true
+        elseif Distance == 20 or Distance == 21 or Distance == 22 then
+            return true
+        elseif Distance == 23 or Distance == 24 or Distance == 25 or Distance == 26 or Distance == 27 or Distance == 28 then
+            return true
+        elseif Distance == 29 or Distance == 30 or Distance == 31 or Distance == 32 or Distance == 33 or Distance == 34 or Distance == 35 or Distance == 36 or Distance == 37 or Distance == 38 or Distance == 39 or Distance == 40 or Distance == 41 or Distance == 42 or Distance == 43 then
+            return true
+        elseif Distance == 44 or Distance == 45 or Distance == 46 then
+            return true
+        elseif Distance == 47 or Distance == 48 or Distance == 49 then
+            return true
+        elseif Distance == 50 or Distance == 51 or Distance == 52 then
+            return true
+        elseif Distance == 53 or Distance == 54 or Distance == 55 then
+            return true
+        elseif Distance == 56 or Distance == 57 or Distance == 58 or Distance == 59 or Distance == 60 then
+            return true
+        elseif Distance == 61 or Distance == 62 or Distance == 63 then
+            return true
+        elseif Distance == 64 or Distance == 65 then
+            return true
+        elseif Distance == 66 then
+            return true
+        end
+    elseif Power == 85 then
+        if Distance == 9 or Distance == 10 or Distance == 11 or Distance == 12 or Distance == 13 then
+            return true
+        elseif Distance == 14 or Distance == 15 or Distance == 16 then
+            return true
+        elseif Distance == 17 or Distance == 18 or Distance == 19 then
+            return true
+        elseif Distance == 20 or Distance == 21 or Distance == 22 or Distance == 23 or Distance == 24 or Distance == 25 or Distance == 26 or Distance == 27 or Distance == 28 or Distance == 29 or Distance == 30 or Distance == 31 or Distance == 32 or Distance == 33 or Distance == 34 or Distance == 35 or Distance == 36 or Distance == 37 or Distance == 38 or Distance == 39 or Distance == 40 then
+            return true
+        elseif Distance == 41 or Distance == 42 or Distance == 43 then
+            return true
+        elseif Distance == 44 or Distance == 45 or Distance == 46 then
+            return true
+        elseif Distance == 47 or Distance == 48 or Distance == 49 then
+            return true
+        elseif Distance == 50 or Distance == 51 or Distance == 52 then
+            return true
+        elseif Distance == 53 or Distance == 54 or Distance == 55 then
+            return true
+        elseif Distance == 56 or Distance == 57 or Distance == 58 or Distance == 59 or Distance == 60 then
+            return true
+        elseif Distance == 61 or Distance == 62 or Distance == 63 or Distance == 64 then
+            return true
+        elseif Distance == 65 then
+            return true
+        elseif Distance == 66 or Distance == 67 or Distance == 68 then
+            return true
+        elseif Distance == 69 then
+            return true
+        elseif Distance == 70 then
+            return true
+        elseif Distance == 71 then
+            return true
+        end
+    end
+end
+
+local calculateVector = function()
+	local Distance = GetDistance()
+	local Power = GetPower()
+	Distance = math.floor(Distance)
+    print(Distance)
+	if Power == 75 then
+        if Distance == 9 or Distance == 10 or Distance == 11 or Distance == 12 or Distance == 13 then
+            return 100
+    elseif Distance == 14 or Distance == 15 or Distance == 16 then
+            return 90
+    elseif Distance == 17 or Distance == 18 or Distance == 19 or Distance == 20 or Distance == 21 or Distance == 22 then
+            return 89
+    elseif Distance == 23 or Distance == 24 or Distance == 25 or Distance == 26 or Distance == 27 or Distance == 28 or Distance == 29 or Distance == 30 or Distance == 31 or Distance == 32 or Distance == 33 or Distance == 34 or Distance == 35 or Distance == 36 or Distance == 37 then
+            return 88
+    elseif Distance == 38 or Distance == 39 or Distance == 40 then
+            return 86
+    elseif Distance == 41 or Distance == 42 or Distance == 43 or Distance == 44 or Distance == 45 or Distance == 46 then
+            return 80
+    elseif Distance == 47 or Distance == 48 or Distance == 49 then
+            return 78
+    elseif Distance == 50 or Distance == 51 or Distance == 52 then
+            return 72
+    elseif Distance == 53 or Distance == 54 or Distance == 55 then
+            return 66
+    elseif Distance == 56 or Distance == 57 or Distance == 58 or Distance == 59 or Distance == 60 then
+            return 45
+        end
+    elseif Power == 80 then
+        if Distance == 9 or Distance == 10 or Distance == 11 or Distance == 12 or Distance == 13 then
+            return 120
+        elseif Distance == 14 or Distance == 15 or Distance == 16 then
+            return 110
+        elseif Distance == 17 or Distance == 18 or Distance == 19 then
+            return 110
+        elseif Distance == 20 or Distance == 21 or Distance == 22 then
+            return 98
+        elseif Distance == 23 or Distance == 24 or Distance == 25 or Distance == 26 or Distance == 27 or Distance == 28 then
+            return 97
+        elseif Distance == 29 or Distance == 30 or Distance == 31 or Distance == 32 or Distance == 33 or Distance == 34 or Distance == 35 or Distance == 36 or Distance == 37 or Distance == 38 or Distance == 39 or Distance == 40 or Distance == 41 or Distance == 42 or Distance == 43 then
+            return 95
+        elseif Distance == 44 or Distance == 45 or Distance == 46 then
+            return 92
+        elseif Distance == 47 or Distance == 48 or Distance == 49 then
+            return 88
+        elseif Distance == 50 or Distance == 51 or Distance == 52 then
+            return 84
+        elseif Distance == 53 or Distance == 54 or Distance == 55 then
+            return 82
+        elseif Distance == 56 or Distance == 57 or Distance == 58 or Distance == 59 or Distance == 60 then
+            return 65
+        elseif Distance == 61 or Distance == 62 or Distance == 63 then
+            return 60
+        elseif Distance == 64 or Distance == 65 then
+            return 55
+        elseif Distance == 66 then
+            return 45
+        end
+    elseif Power == 85 then
+        if Distance == 9 or Distance == 10 or Distance == 11 or Distance == 12 or Distance == 13 then
+            return 132
+        elseif Distance == 14 or Distance == 15 or Distance == 16 then
+            return 122
+        elseif Distance == 17 or Distance == 18 or Distance == 19 then
+            return 112
+        elseif Distance == 20 or Distance == 21 or Distance == 22 or Distance == 23 or Distance == 24 or Distance == 25 or Distance == 26 or Distance == 27 or Distance == 28 or Distance == 29 or Distance == 30 or Distance == 31 or Distance == 32 or Distance == 33 or Distance == 34 or Distance == 35 or Distance == 36 or Distance == 37 or Distance == 38 or Distance == 39 or Distance == 40 then
+            return 110
+        elseif Distance == 41 or Distance == 42 or Distance == 43 then
+            return 107
+        elseif Distance == 44 or Distance == 45 or Distance == 46 then
+            return 106
+        elseif Distance == 47 or Distance == 48 or Distance == 49 then
+            return 102
+        elseif Distance == 50 or Distance == 51 or Distance == 52 then
+            return 98
+        elseif Distance == 53 or Distance == 54 or Distance == 55 then
+            return 96
+        elseif Distance == 56 or Distance == 57 or Distance == 58 or Distance == 59 or Distance == 60 then
+            return 85
+        elseif Distance == 61 or Distance == 62 or Distance == 63 or Distance == 64 then
+            return 80
+        elseif Distance == 65 then
+            return 75
+        elseif Distance == 66 or Distance == 67 or Distance == 68 then
+            return 70
+        elseif Distance == 69 then
+            return 65
+        elseif Distance == 70 then
+            return 55
+        elseif Distance == 71 then
+            return 45
+        end
+    end
+end
+
+(getgenv()).Shoot = function()
+	local Goal = GetGoal()
+	local Power = GetPower()
+    local MoveDirection = GetMoveDirection()
+	local calculateVector = calculateVector()
+	local Basketball = GetBasketball()
+    if calculateVector == nil then return end
+	local Direction = Direction(Goal.Position + Vector3.new(0,calculateVector,0) + MoveDirection)
+	local Table = {
+		"Ball_Shoot",
+		Direction,
+		Power
+	}
+	Player.Remotes.RemoteEvent:FireServer(table.unpack(Table))
+end
+
+getgenv().Stepped = RS.Stepped:Connect(function()
+    local Goal = GetGoal()
+    local Distance = CheckDistance()
+    local Power = GetPower()
+    
+    if Player.Character and Character:FindFirstChild("Ball") then
+        HasBall = true
+    else
+        HasBall = false
+    end
+
+    if Distance then
+        InRange = true
+    else
+        InRange = false
+    end
+    
+    if InRange and HasBall then
+        Highlight.Enabled = true
+    else
+        Highlight.Enabled = false
+    end
+    
+    if Highlight.Adornee.Parent == nil and Player.Character then
+        Highlight.Adornee = Player.Character
+    end
+end)
+
+Character.Humanoid.Jumping:Connect(function(IsJumping)
+    if IsJumping then
+    task.wait(0.225)
+    Shoot()
+    end
+end)

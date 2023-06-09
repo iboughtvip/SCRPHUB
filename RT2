@@ -5,8 +5,8 @@ end)
 
 if S then
     game.StarterGui:SetCore("SendNotification", {
-        Title = "Silent Aim",
-        Text = "Jump to shoot!",
+        Title = "Rooftop 2 Silent Aim",
+        Text = "Jump to Shoot Ball!",
         Duration = 3
     })
 

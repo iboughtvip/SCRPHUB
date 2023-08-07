@@ -138,17 +138,6 @@ end)
       StreetballSection:NewButton("Universal long arm", "Y to toggle long arms", function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
     end)
-
-
-       -- RH2
-       local Main = Window:NewTab("RH2")
-       local RH2Section = Main:NewSection("Rh2")
-   
-   
-       RH2Section:NewButton("Under construction", "does nothing except open drop offs gui", function()
-           loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/drop'),true))()
-       end)
-   
       
 
           -- Hoops Life
@@ -215,19 +204,6 @@ end)
     PlayerSection:NewButton("Universal long arm", "Y to toggle long arms", function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/iboughtvip/SCRPHUB/main/Long%20arm'),true))()
     end)
-
-      -- More Games
-      local Main = Window:NewTab("More Games | 155+ game GUI ")
-      local MoreGamesSection = Main:NewSection("More Games")
-  
-  
-      MoreGamesSection:NewButton("155+ game GUI (not my gui its VG Hub)", "GUI that has 155+ games", function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/V.Ghub'))()
-      end)
-
-      MoreGamesSection:NewButton("OP 55+ game GUI (Not mine its Unfair Hub)", "op GUI that has 55+ games", function()
-        loadstring(game:HttpGet(('https://raw.githubusercontent.com/rblxscriptsnet/unfair/main/rblxhub.lua'),true))()
-      end)
   
 
         --Other
@@ -238,6 +214,14 @@ end)
             OtherSection:NewKeybind("Toggle", "Toggles the Gui", Enum.KeyCode.L, function()
                 Library:ToggleUI()
             end)
+
+      OtherSection:NewButton("155+ game GUI (not my gui its VG Hub)", "GUI that has 155+ games", function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/1201for/V.G-Hub/main/V.Ghub'))()
+      end)
+
+      OtherSection:NewButton("OP 55+ game GUI (Not mine its Unfair Hub)", "op GUI that has 55+ games", function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/rblxscriptsnet/unfair/main/rblxhub.lua'),true))()
+      end)
 
             OtherSection:NewButton("Mob keyboard script", "mobile keyboard script", function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()

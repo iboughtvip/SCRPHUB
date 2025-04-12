@@ -4,7 +4,7 @@ game.StarterGui:SetCore("SendNotification", {
 	Duration = 5;
 })
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Universal Roball Gui By TheMenace#3769", "DarkTheme")
+local Window = Library.CreateLib("Universal Roball Gui By rdnevermisses (Outdated)", "DarkTheme")
         
     -- Hoopz
     local Main = Window:NewTab("Hoopz")

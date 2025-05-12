@@ -1,0 +1,29 @@
+       local Player = game:GetService("Players").LocalPlayer
+local RunService = game:GetService("RunService")
+
+local IsRobloxLua = function(Obj)
+    return (islclosure(Obj) == true and is_synapse_function(Obj) == false)
+end
+
+local Key3 do
+    for _, Obj in next, getgc(true) do
+        if typeof(Obj) == "function" and IsRobloxLua(Obj) and getinfo(Obj)["name"] == "Key3" then
+            Key3 = Obj
+        end
+    end
+end
+
+Player.CharacterAdded:Connect(function()
+    for _, Obj in next, getgc(true) do
+        if typeof(Obj) == "function" and IsRobloxLua(Obj) and getinfo(Obj)["name"] == "Key3" then
+            Key3 = Obj
+        end
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if Key3 ~= nil then
+        setupvalue(Key3, 1, false)
+    end
+end)
+    end)

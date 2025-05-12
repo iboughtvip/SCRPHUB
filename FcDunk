@@ -51,7 +51,7 @@ local AutoScore = function()
 end
 
 UIS.InputBegan:Connect(function(Key, GPE)
-    if GPE == false and Key.KeyCode == Enum.KeyCode.X and Player.Character:FindFirstChild("Basketball") ~= nil then
+    if GPE == false and Key.KeyCode == Enum.KeyCode.P and Player.Character:FindFirstChild("Basketball") ~= nil then
         AutoScore()
     end
 end)

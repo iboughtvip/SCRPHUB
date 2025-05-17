@@ -1,0 +1,275 @@
+local player = game.Players.LocalPlayer
+local playerName = player.Name
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local toolGoal = 200
+local isFarming = false
+ 
+local function findOwnedFarm()
+	local rootFarmFolder = workspace:FindFirstChild("Farm")
+	if not rootFarmFolder then warn("No 'Farm' folder in Workspace.") return nil end
+ 
+	for _, farmFolder in ipairs(rootFarmFolder:GetChildren()) do
+		if farmFolder:IsA("Folder") and farmFolder.Name == "Farm" then
+			local important = farmFolder:FindFirstChild("Important")
+			if important then
+				local data = important:FindFirstChild("Data")
+				if data then
+					local ownerValue = data:FindFirstChild("Owner")
+					if ownerValue and ownerValue:IsA("StringValue") and ownerValue.Value == playerName then
+						return farmFolder
+					end
+				end
+			end
+		end
+	end
+	warn("Farm found, but none owned by you.")
+	return nil
+end
+ 
+local function simulateKeyPress(key)
+	local vim = game:GetService("VirtualInputManager")
+	vim:SendKeyEvent(true, Enum.KeyCode[key], false, game)
+	vim:SendKeyEvent(false, Enum.KeyCode[key], false, game)
+end
+ 
+local function createFarmGui()
+	local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+	gui.Name = "AutoFarmGUI"
+ 
+	local button = Instance.new("TextButton", gui)
+	button.Position = UDim2.new(1, -210, 0.4, 0)
+	button.Size = UDim2.new(0, 200, 0, 40)
+	button.Text = "Farm 200 Fruits"
+	button.TextColor3 = Color3.new(1, 1, 1)
+	button.BackgroundColor3 = Color3.fromRGB(70, 130, 70)
+	button.Font = Enum.Font.SourceSansBold
+	button.TextSize = 18
+	button.Name = "Farm200Button"
+ 
+	return button
+end
+ 
+local function teleportToObject(object)
+	local part = nil
+	if object:IsA("BasePart") then
+		part = object
+	elseif object:IsA("Model") then
+		part = object.PrimaryPart
+		if not part then
+			for _, child in ipairs(object:GetDescendants()) do
+				if child:IsA("BasePart") then
+					part = child
+					break
+				end
+			end
+		end
+	end
+ 
+	if part then
+		humanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 5, 0)
+		return true
+	else
+		warn("Could not find teleport target for:", object:GetFullName())
+		return false
+	end
+end
+ 
+local function countTools()
+	local count = 0
+	for _, tool in ipairs(player.Backpack:GetChildren()) do
+		if tool:IsA("Tool") then
+			count += 1
+		end
+	end
+	return count
+end
+ 
+local function startAutoFarm(farm)
+	if isFarming then return end
+	local plantsFolder = farm:FindFirstChild("Important"):FindFirstChild("Plants_Physical")
+	if not plantsFolder then warn("Missing Plants_Physical") return end
+ 
+	isFarming = true
+	local toolCount = countTools()
+ 
+	for _, plant in ipairs(plantsFolder:GetChildren()) do
+		if toolCount >= toolGoal then break end
+ 
+		local fruits = plant:FindFirstChild("Fruits")
+		if fruits and #fruits:GetChildren() > 0 then
+			for _, fruit in ipairs(fruits:GetChildren()) do
+				if toolCount >= toolGoal then break end
+				if teleportToObject(fruit) then
+					task.wait(0.1)
+					simulateKeyPress("E")
+					task.wait(0.1)
+					toolCount = countTools()
+				end
+			end
+		else
+			if teleportToObject(plant) then
+				task.wait(0.1)
+				simulateKeyPress("E")
+				task.wait(0.1)
+				toolCount = countTools()
+			end
+		end
+	end
+ 
+	isFarming = false
+end
+ 
+local myFarm = findOwnedFarm()
+if myFarm then
+	local button = createFarmGui()
+	button.MouseButton1Click:Connect(function()
+		if not isFarming then
+			startAutoFarm(myFarm)
+		end
+	end)
+end
+ 
+local player = game.Players.LocalPlayer
+local playerName = player.Name
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local toolGoal = 200
+local isFarmingSpecific = false
+ 
+local function findOwnedFarm()
+	local rootFarmFolder = workspace:FindFirstChild("Farm")
+	if not rootFarmFolder then return nil end
+ 
+	for _, farmFolder in ipairs(rootFarmFolder:GetChildren()) do
+		if farmFolder:IsA("Folder") and farmFolder.Name == "Farm" then
+			local important = farmFolder:FindFirstChild("Important")
+			if important then
+				local data = important:FindFirstChild("Data")
+				if data then
+					local ownerValue = data:FindFirstChild("Owner")
+					if ownerValue and ownerValue:IsA("StringValue") and ownerValue.Value == playerName then
+						return farmFolder
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+ 
+local function simulateKeyPress(key)
+	local vim = game:GetService("VirtualInputManager")
+	vim:SendKeyEvent(true, Enum.KeyCode[key], false, game)
+	vim:SendKeyEvent(false, Enum.KeyCode[key], false, game)
+end
+ 
+local function teleportToObject(object)
+	local part = nil
+	if object:IsA("BasePart") then
+		part = object
+	elseif object:IsA("Model") then
+		part = object.PrimaryPart
+		if not part then
+			for _, child in ipairs(object:GetDescendants()) do
+				if child:IsA("BasePart") then
+					part = child
+					break
+				end
+			end
+		end
+	end
+ 
+	if part then
+		humanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 5, 0)
+		return true
+	end
+ 
+	return false
+end
+ 
+local function countTools()
+	local count = 0
+	for _, tool in ipairs(player.Backpack:GetChildren()) do
+		if tool:IsA("Tool") then
+			count += 1
+		end
+	end
+	return count
+end
+ 
+local function createSpecificUI(farm)
+	local gui = player.PlayerGui:WaitForChild("AutoFarmGUI")
+ 
+	local label = Instance.new("TextLabel", gui)
+	label.Position = UDim2.new(1, -210, 0.4, 50)
+	label.Size = UDim2.new(0, 200, 0, 20)
+	label.Text = "Type plant name (Case Sensitive):"
+	label.BackgroundTransparency = 1
+	label.TextColor3 = Color3.new(1, 1, 1)
+	label.Font = Enum.Font.SourceSans
+	label.TextSize = 14
+ 
+	local textBox = Instance.new("TextBox", gui)
+	textBox.Position = UDim2.new(1, -210, 0.4, 75)
+	textBox.Size = UDim2.new(0, 200, 0, 25)
+	textBox.PlaceholderText = "Ex: Tomato"
+	textBox.Text = ""
+	textBox.Font = Enum.Font.SourceSans
+	textBox.TextSize = 16
+	textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	textBox.TextColor3 = Color3.new(1, 1, 1)
+ 
+	local button = Instance.new("TextButton", gui)
+	button.Position = UDim2.new(1, -210, 0.4, 105)
+	button.Size = UDim2.new(0, 200, 0, 40)
+	button.Text = "Farm 200 of Specific Plant"
+	button.TextColor3 = Color3.new(1, 1, 1)
+	button.BackgroundColor3 = Color3.fromRGB(130, 70, 70)
+	button.Font = Enum.Font.SourceSansBold
+	button.TextSize = 16
+ 
+	button.MouseButton1Click:Connect(function()
+		if isFarmingSpecific then return end
+		local plantName = textBox.Text
+		if plantName == "" then return end
+ 
+		local plantsFolder = farm:FindFirstChild("Important"):FindFirstChild("Plants_Physical")
+		if not plantsFolder then return end
+ 
+		isFarmingSpecific = true
+		local toolCount = countTools()
+ 
+		for _, plantModel in ipairs(plantsFolder:GetChildren()) do
+			if plantModel.Name == plantName then
+				local fruits = plantModel:FindFirstChild("Fruits")
+				if fruits and #fruits:GetChildren() > 0 then
+					for _, fruit in ipairs(fruits:GetChildren()) do
+						if toolCount >= toolGoal then break end
+						if teleportToObject(fruit) then
+							task.wait(0.1)
+							simulateKeyPress("E")
+							task.wait(0.01)
+							toolCount = countTools()
+						end
+					end
+				else
+					if teleportToObject(plantModel) and toolCount < toolGoal then
+						task.wait(0.1)
+						simulateKeyPress("E")
+						task.wait(0.01)
+						toolCount = countTools()
+					end
+				end
+			end
+			if toolCount >= toolGoal then break end
+		end
+ 
+		isFarmingSpecific = false
+	end)
+end
+ 
+local myFarm = findOwnedFarm()
+if myFarm then
+	createSpecificUI(myFarm)
+end

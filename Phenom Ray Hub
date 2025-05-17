@@ -1,0 +1,123 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+ 
+-- Check if Rayfield is loaded correctly
+if not Rayfield then
+    warn("Failed to load Rayfield library")
+    return
+end
+ 
+local Window = Rayfield:CreateWindow({
+    Name = "Ray Hub | Phenom",
+    LoadingTitle = "Ray Hub Script",
+    LoadingSubtitle = "by Ray Hub",
+    ConfigurationSaving = {
+       Enabled = false,
+       FileName = "Ray Script Hub"
+    },
+    Discord = {
+       Enabled = true,
+       Invite = "j6KU3BQchb",
+       RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+       Title = "Ray Script Hub | Key",
+       Subtitle = "Link In Discord Server",
+       Note = "Join Server From Misc Tab",
+       FileName = "RayKey",
+       SaveKey = false,
+       GrabKeyFromSite = true,
+       Key = {"https://pastebin.com/raw/FfNx7C7k"}
+    }
+})
+ 
+if not Window then
+    warn("Failed to create window. Please check the Rayfield library or script parameters.")
+    return
+end
+
+local MainTab = Window:CreateTab("Aimbot", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Silent Aims") -- Changed 'Tab' to 'MainTab'
+ 
+local Button = MainTab:CreateButton({
+    Name = "Normal Silent",
+    Callback = function()
+        -- The function that takes place when the button is pressed
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/NormalAimbot.lua"))()
+   end,
+})
+local Button = MainTab:CreateButton({
+   Name = "NoJump Silent",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/NoJumpBot.lua"))()
+  end,
+})
+local Button = MainTab:CreateButton({
+   Name = "T Silent",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/TBot.lua",true))()
+  end,
+})
+local Button = MainTab:CreateButton({
+   Name = "Bounce Silent",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/carolesdaughter/Roblox-Phenom-Silent-Aims/main/BounceBot.lua",true))()
+  end,
+})
+
+local OtherTab = Window:CreateTab("Other", nil) -- Title, Image
+local OtherSection = OtherTab:CreateSection("Other") -- Changed 'Tab' to 'MainTab'
+
+local Button = OtherTab:CreateButton({
+   Name = "0 Handle Cooldown",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/iboughtvip/SCRPHUB/refs/heads/main/Handles%20Cooldown",true))()
+  end,
+})
+
+local Button = OtherTab:CreateButton({
+   Name = "Ball Mag (N)",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/iboughtvip/SCRPHUB/refs/heads/main/Phenom%20Mag",true))()
+  end,
+})
+
+local Button = OtherTab:CreateButton({
+   Name = "Auto Guard (Z)",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/Cleality/phenomidk/main/autoguard",true))()
+  end,
+})
+
+local Button = OtherTab:CreateButton({
+   Name = "Fullcourt Dunk (P)",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/iboughtvip/SCRPHUB/refs/heads/main/FcDunk",true))()
+  end,
+})
+
+local MiscTab = Window:CreateTab("Misc", nil) -- Title, Image
+local MiscSection = MiscTab:CreateSection("Misc") -- Changed 'Tab' to 'MainTab'
+
+local Button = MiscTab:CreateButton({
+   Name = "Infinite yield FE",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",true))()
+  end,
+})
+
+local Button = MiscTab:CreateButton({
+   Name = "Mobile Keyboard (Bind) Script",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt",true))()
+  end,
+})

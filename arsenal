@@ -19,7 +19,7 @@ local Window = Rayfield:CreateWindow({
        Invite = "j6KU3BQchb",
        RememberJoins = true
     },
-    KeySystem = true,
+    KeySystem = false,
     KeySettings = {
        Title = "Ray Script Hub | Key",
        Subtitle = "Link In Discord Server",

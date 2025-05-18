@@ -1,0 +1,73 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+ 
+-- Check if Rayfield is loaded correctly
+if not Rayfield then
+    warn("Failed to load Rayfield library")
+    return
+end
+ 
+local Window = Rayfield:CreateWindow({
+    Name = "Ray Hub | Arsenal",
+    LoadingTitle = "Ray Hub Script",
+    LoadingSubtitle = "by Ray Hub",
+    ConfigurationSaving = {
+       Enabled = false,
+       FileName = "Ray Script Hub"
+    },
+    Discord = {
+       Enabled = true,
+       Invite = "j6KU3BQchb",
+       RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+       Title = "Ray Script Hub | Key",
+       Subtitle = "Link In Discord Server",
+       Note = "Join Server From Misc Tab",
+       FileName = "RayKey",
+       SaveKey = false,
+       GrabKeyFromSite = true,
+       Key = {"https://pastebin.com/raw/FfNx7C7k"}
+    }
+})
+ 
+if not Window then
+    warn("Failed to create window. Please check the Rayfield library or script parameters.")
+    return
+end
+
+local MainTab = Window:CreateTab("Main", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("main functions") -- Changed 'Tab' to 'MainTab'
+ 
+local Button = MainTab:CreateButton({
+   Name = "Ray Hub Arsenal GUI",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/iboughtvip/SCRPHUB/refs/heads/main/ray.hub.arsenal.script.creds.quotas",true))()
+  end,
+})
+
+local OtherTab = Window:CreateTab("Other", nil) -- Title, Image
+local OtherSection = OtherTab:CreateSection("Other") -- Changed 'Tab' to 'MainTab'
+
+local MiscTab = Window:CreateTab("Misc", nil) -- Title, Image
+local MiscSection = MiscTab:CreateSection("Misc") -- Changed 'Tab' to 'MainTab'
+
+local Button = MiscTab:CreateButton({
+   Name = "Mobile Keyboard (Bind) Script",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt",true))()
+  end,
+})
+
+local Button = MiscTab:CreateButton({
+    Name = "Infinite yield FE",
+    Callback = function()
+        -- The function that takes place when the button is pressed
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source",true))()
+   end,
+ })
+
+ wait(20)
+ Rayfield:Destroy()
